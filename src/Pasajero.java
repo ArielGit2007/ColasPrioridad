@@ -1,14 +1,24 @@
-public class Pasajero {
+public class Pasajero implements Comparable<Pasajero>{
     private String nombre;
     private int numeroAsiento;
     private String tipoAsiento;
     private Boolean checkin;
-
+    private int Prioridad;
+    private void transformarPrioridad(){
+        if(tipoAsiento.compareToIgnoreCase("ECONOMICA")==0){
+            Prioridad=3;
+        }else if(tipoAsiento.compareToIgnoreCase("EJECUTIVA")==0){
+            Prioridad=2;
+        }else{
+            Prioridad=1;
+        }
+    }
     public Pasajero(String nombre, int numeroAsiento, String tipoAsiento) {
         this.nombre = nombre;
         this.numeroAsiento = numeroAsiento;
         this.tipoAsiento = tipoAsiento;
         checkin=false;
+        transformarPrioridad();
     }
 
     public void setCheckin(Boolean checkin) {
@@ -24,4 +34,8 @@ public class Pasajero {
                 ", checkin: " + checkin +"\n";
     }
 
+    @Override
+    public int compareTo(Pasajero o) {
+        return Integer.compare(Prioridad,o.Prioridad);
+    }
 }
